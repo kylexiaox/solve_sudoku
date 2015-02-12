@@ -62,6 +62,7 @@ class SolveSudoku(object):
         self._step_number = self._step_number + 1
         print("flush Set, Setp: " + str(self._step_number) + "\n")
         self.printMap()
+        csv.writeFromArray('middle.csv',self._map)
         return over
 
 
@@ -74,6 +75,23 @@ class SolveSudoku(object):
                                                self._setCol[col]
                     if len(self._map[row][col].cell) == 1:
                         self._map[row][col].number = self._map[row][col].cell.pop()
+                    else:
+                        temp = []
+                        # row
+                        for i in range(9):
+                            if self._map[row][i].number==None and i!= col:
+                                temp = self._map[row][col].cell - self._map[row][i].cell
+                        if len(temp) == 1:
+                            self._map[row][col].number = temp.pop()
+                            self._map[row][col].cell.clear()
+                        # col
+                        for i in range(9):
+                            if self._map[j][none].number==None and i!= col:
+                                temp = self._map[row][col].cell - self._map[row][i].cell
+                        if len(temp) == 1:
+                            self._map[row][col].number = temp.pop()
+                            self._map[row][col].cell.clear()
+
 
     def solveSudoku(self):
         while not self.flushSet():
@@ -84,7 +102,7 @@ class SolveSudoku(object):
             for col in range(9):
                 subResult.append(self._map[row][col])
             result.append(subResult)
-            csv.writeFromArray('result_1.csv', result)
+            csv.writeFromArray('result_3.csv', result)
 
 
     def printMap(self):
@@ -97,5 +115,5 @@ class SolveSudoku(object):
 
 
 if __name__ == '__main__':
-    map = csv.readToArray('1.csv')
+    map = csv.readToArray('3.csv')
     SolveSudoku(map).solveSudoku();

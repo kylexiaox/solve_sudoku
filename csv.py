@@ -17,9 +17,15 @@ def writeFromArray(filename,map):
     for col in range(len(map)):
         for row in range(len(map[col])):
             if row == 0:
-                output = output + str(map[col][row].number)
+                if map[col][row].number != None:
+                    output = output + str(map[col][row].number)
+                else:
+                    output = output + str(map[col][row].cell)
             else:
-                output = output +','+ str(map[col][row].number)
+                if map[col][row].number != None:
+                    output = output +','+ str(map[col][row].number)
+                else:
+                    output = output +','+ str(map[col][row].cell)
         output = output+'\n'
 
     file = open(filename ,'w')
