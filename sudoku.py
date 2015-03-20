@@ -81,22 +81,11 @@ class SolveSudoku(object):
         for row in range(9):
             for col in range(9):
                 if self._map[row][col].number == None:
-                    # if len(self._map[row][col].cell) == 0:
-                    #     recoverStatus = self._statusStack.pop()
-                    #     self._map = recoverStatus.map
-                    #     self._map[recoverStatus.row][recoverStatus.col].number = self._map[recoverStatus.row][recoverStatus.col].cell.pop()
-                    #     self.flushSet()
-                    #     return
                     self._map[row][col].cell = self._map[row][col].cell - self._setRow[row] - \
                                                self._setCell[int(math.ceil(row / 3))][int(math.ceil(col / 3))] - \
                                                self._setCol[col]
                     if len(self._map[row][col].cell) == 1:
                         self._map[row][col].number = self._map[row][col].cell.pop()
-                    # elif self._isBottleneck == True and len(self._map[row][col].cell) == 2:
-                    #     self._map[row][col].number = self._map[row][col].cell.pop()
-                    #     currentStatus = status(self._map,row,col)
-                    #     self._statusStack.append(currentStatus)
-                    #     self._isBottleneck = False
                     else:
                         # row
                         temp = self._map[row][col].cell
@@ -129,7 +118,6 @@ class SolveSudoku(object):
                             continue
         if not cmp(self._map, self._lastMap):
             self._isBottleneck = True
-
         self._lastMap = self._map
 
     def solveSudoku(self):
